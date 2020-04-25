@@ -1,10 +1,10 @@
-
-
-class Tic_tac_toe_pattern(Tic_tac_toe_base):
+##################Pattern Based Tic Tac####################
+from tic_toe import Tic_tac_toe_base, bcolors
+class Tic_tac_toe_pattern_based(Tic_tac_toe_base):
 
     def __init__(self):
-      Tic_tac_toe_base.__init__(self):
-      self.pattern = {"1st player": 'X', "2nd player":'0'}
+      Tic_tac_toe_base.__init__(self)
+      self.pattern = {self.player_one: 'X', self.player_two:'0'}
 
     # Handle a turn for an arbitrary player
     def handle_turn(self, player):
@@ -12,13 +12,13 @@ class Tic_tac_toe_pattern(Tic_tac_toe_base):
       # Get position from player
       print(player + "'s turn.")
       position = int(input("Choose a valid position from 1-9: "))
-      while (position not in range(1,10)) and (board[position] == "-"):
+      
+      while not (position in range(1,10) and (self.board[position-1] == "-")):
+        print(bcolors.WARNING + " Please Choose a valid position from 1-9" + bcolors.ENDC)
         position = int(input("Choose a valid position from 1-9: "))
   
-      # Get correct index in our board list
-      position = position - 1
       # Put the game piece on the board
-      self.board[position] = self.pattern[player]
+      self.board[position-1] = self.pattern[player]
       # Show the game board
       self.display_board()
 
@@ -58,3 +58,7 @@ class Tic_tac_toe_pattern(Tic_tac_toe_base):
         self.game_still_going = False
         self.winner = True
 
+
+
+pattern_game = Tic_tac_toe_pattern_based()
+pattern_game.play_game()
